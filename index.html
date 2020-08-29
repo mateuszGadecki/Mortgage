@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.css" integrity="sha512-8M8By+q+SldLyFJbybaHoAPD6g07xyOcscIOQEypDzBS+sTde5d6mlK2ANIZPnSyxZUqJfCNuaIvjBUi8/RS0w==" crossorigin="anonymous" />
+    </head>
+    <body>
+        <div id="fullPage">
+            <section class="title section">
+                <div class="row">
+                    <h1>Kredyt Hipoteczny</h1>
+                </div>
+                <div class="row">
+                    <div class="definition">
+                        <p class="description"><strong>Kredyt hipoteczny</strong> – długoterminowy kredyt bankowy, którego zabezpieczeniem jest hipoteka ustanowiona na rzecz banku kredytującego na prawie użytkowania wieczystego lub prawie własności nieruchomości.
+                        </br>Całkowity koszt kredytu hipotecznego zależy od wielu czynników, z których głównym są odsetki naliczane od kapitału pozostałego do spłaty.</br></br> Pozostałe koszty to:</p>
+                        <ul class="list">
+                            <li>&#9900; Prowizja bankowa</li>
+                            <li>&#9900; Ustanowienie hipoteki wpisem w księdze wieczystej</li>
+                            <li>&#9900; Koszty notarialne</li>
+                            <li>&#9900; Założenie księgi wieczystej dla nieruchomości</li>
+                            <li>&#9900; Ubezpieczenie od zdarzeń losowych z cesją praw z polisy na bank kredytujący</li>
+                            <li>&#9900; Ubezpieczenie na życie z cesją na rzecz banku</li>
+                            <li>&#9900; Całkowity koszt kredytu (CKK) – suma wszystkich kosztów związanych z kredytem</li>
+                            <li>&#9900; Prowizja za wcześniejszą spłatę</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="calculator section">
+                <div class="row">
+                    <h2>Parametry Kredytu</h2>
+                    <ul class="parameters">
+                        <li><p class="par">Wartość mieszkania:</p><input type="number" class="value" required></li>
+                        <li><p class="par">Oprocentowanie:</p><input type="number" class="percentage" required></li>
+                        <li><p class="par">Okres kredytu:</p><input type="number" class="period" required></li>
+                        <li><p class="par">Wkład własny:</p><input type="number" class="contribution" placeholder="% lub Pln" required>
+                            <select class="type">
+                                <option value="pln" selected>Pln</option>
+                                <option value="perc">%</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <a class="submit_btn button" href="#section3">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Oblicz
+                    </a>
+                </div>
+            </section>
+            <section class="results section">
+                <div class="center">
+                    <div class="row">
+                        <h2 class="installment">Wysokość Rat</h2>
+                    </div>
+                    <div class="row column">
+                        <div>
+                            <div class="heading">Kapitał: </div>
+                            <div class="capital">1000zł</div>
+                            <div class="heading">Odsetki:</div>
+                            <div class="interest">250zł</div>
+                            <div class="heading">Ilość takich mieszkań jaką można by kupić za pieniądze,</br> które zmarnował Sasin na druk nielegalnych kart wyborczych:</div>
+                            <div class="flats">256</div>
+                            <a class="reset_btn button" href="#section2">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Resetuj Parametry
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <script src="resources/js/script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.js" integrity="sha512-Gx/C4x1qubng2MWpJIxTPuWch9O88dhFFfpIl3WlqH0jPHtCiNdYsmJBFX0q5gIzFHmwkPzzYTlZC/Q7zgbwCw==" crossorigin="anonymous"></script>
+        <script>
+            new fullpage('#fullPage', {
+                autoScrolling: true,
+                navigation: true,
+                anchors: ['section1', 'section2', 'section3']
+            })
+        </script>
+    </body>
+</html>
+
+
+
+
