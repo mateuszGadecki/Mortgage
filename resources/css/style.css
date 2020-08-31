@@ -128,24 +128,50 @@ h2 {
 }
 .column { font-size: 110%; }
 .center { height: 100%; }
-.installment { margin: 150px 0 70px 0; }
+.installment { margin: 130px 0 30px 0; }
 
 .heading {
-    padding: 10px;
+    padding: 7px;
 }
 
 .capital,
 .interest,
-.flats {
+.flats,
+.monthly,
+.amount {
     margin-left: 20px;
+    font-weight: 300;
 }
 
 .capital { color: #009432; }
 .interest { color: #EA2027; }
 
-.capital,
-.interest,
-.flats { font-weight: 300; }
+/*------------------------------History------------------------------*/
+.history {
+    background-image: linear-gradient(35deg, hsl(0, 0%, 100%), rgb(255, 255, 255) 60%, rgb(198, 248, 245) 60%, rgb(198, 248, 245));
+}
+
+.comparison { margin: 170px 0 30px 0; }
+
+.item::before, .item::after {
+    clear: both;
+    display:table;
+    content:"";
+}
+
+.item:nth-child(even) { background-color: #c6f8f5; }
+.item {
+    width: 500px;
+    font-size: 110%;
+}
+
+.number,
+.history_value,
+.history_installment,
+.history_percentage {
+    margin-left: 40px;
+    float: left;
+}
 
 
 /*------------------------------Buttons------------------------------*/
@@ -163,6 +189,17 @@ h2 {
     overflow: hidden;
     transition: 0.2s;
     margin-top: 30px;
+}
+
+.history_btn {
+    font-size: 90%;
+    float: right;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 300;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.158), rgba(0, 0, 0, 0.158));
+    padding: 10px;
+    border-radius: 15%;
 }
 
 .button:hover {
