@@ -82,10 +82,10 @@ h2 {
     list-style-type: none;
 }
 
-.value,
-.percentage,
-.period,
-.contribution {
+.flat_value,
+.credit_percentage,
+.credit_period,
+.credit_contribution {
     border: 1px solid #c5c5c5;
     background-color: #fff;
     color: inherit;
@@ -98,7 +98,7 @@ h2 {
     transition: border 0.3s;
 }
 
-.type {
+.type_contribution {
     width: 75px;
     border: 1px solid #c5c5c5;
     height: 42px;
@@ -111,11 +111,11 @@ h2 {
     transition: border 0.3s;
 }
 
-.value:focus,
-.percentage:focus,
-.period:focus,
-.contribution:focus,
-.type:focus {
+.flat_value:focus,
+.credit_percentage:focus,
+.credit_period:focus,
+.credit_contribution:focus,
+.type_contribution:focus {
     outline: none;
     border: 1px solid #2fdcbf;
 }

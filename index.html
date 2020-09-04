@@ -35,11 +35,11 @@
                 <div class="row">
                     <h2>Parametry Kredytu</h2>
                     <ul class="parameters">
-                        <li><p class="par">Wartość mieszkania:</p><input type="number" class="value" required></li>
-                        <li><p class="par">Oprocentowanie:</p><input type="number" class="percentage" required></li>
-                        <li><p class="par">Okres kredytu:</p><input type="number" class="period" required></li>
-                        <li><p class="par">Wkład własny:</p><input type="number" class="contribution" placeholder="% lub Pln" required>
-                            <select class="type">
+                        <li><p class="par">Wartość mieszkania:</p><input type="number" class="flat_value" required></li>
+                        <li><p class="par">Oprocentowanie:</p><input type="number" class="credit_percentage" placeholder="Oprocentowanie w skali roku" required></li>
+                        <li><p class="par">Okres kredytu:</p><input type="number" class="credit_period" placeholder="W latach" required></li>
+                        <li><p class="par">Wkład własny:</p><input type="number" class="credit_contribution" placeholder="% lub Pln" required>
+                            <select class="type_contribution">
                                 <option value="pln" selected>Pln</option>
                                 <option value="perc">%</option>
                             </select>
@@ -54,6 +54,7 @@
                     </a>
                 </div>
             </section>
+
             <section class="results section">
                 <div class="center">
                     <div class="row">
@@ -100,6 +101,7 @@
                     </div>
                 </div>
             </section>
+            -->
         </div>
 
         <script src="resources/js/script.js"></script>
