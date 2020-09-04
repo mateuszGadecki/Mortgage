@@ -23,8 +23,6 @@ var calculatorController = (function() {
         this.type = type;
     };
 
-
-
     data = {
         items: {
             perc: [],
@@ -101,6 +99,13 @@ var calculatorController = (function() {
             data.calculated.push(parameters);
         },
 
+        clearData: function() {
+            data.items.perc = [];
+            data.items.pln = [];
+            data.elements = [];
+            data.calculated = [];
+        },
+
         testing: function() {
             console.log(data);
         }
@@ -132,6 +137,16 @@ var UIController = (function() {
                 contribution: parseFloat(document.querySelector(DOMstrings.creditContribution).value),
                 type: document.querySelector(DOMstrings.typeContribution).value
             }
+        },
+
+        clear: function() {
+            var inputFields, convertToArr;
+            // 1. Clear the fields
+            inputFields =document.querySelectorAll(DOMstrings.flatValue + ', ' + DOMstrings.creditPercentage + ', ' + DOMstrings.creditPeriod + ', ' + DOMstrings.creditContribution);
+            convertToArr = Array.prototype.slice.call(inputFields);
+            convertToArr.forEach(function(current, index, array) {
+                current.value = "";
+            })
         },
 
         getDomStrings : function() {
@@ -177,6 +192,9 @@ var controller = (function(calcCtrl, UICtrl) {
 
     var resetItem = function() {
         // 1. Clear the fields
+        UICtrl.clear();
+        // 2. Clear arrays
+        calcCtrl.clearData();
     };
 
     return {
