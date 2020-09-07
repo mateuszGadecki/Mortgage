@@ -35,15 +35,59 @@ var calculatorController = (function() {
 
     return {
         addItem: function(flatVal, perc, per, contr, type) {
-            var newPosition;
-            // Create new item based on pln or percentage
-            if(type === 'perc') {
-                newPosition = new parameters_contr_inPerc(flatVal, perc, per, contr, type)
-            } else if (type = 'pln') {
-                newPosition = new parameters_contr_inPln(flatVal, perc, per, contr, type)
-            }
-            // Push into data
-            data.items[type].push(newPosition);
+            var newPosition, a, b, c, d, e, error;
+
+            // Validation
+            a = document.querySelector('.flat_value').value;
+            b = document.querySelector('.credit_percentage').value;
+            c = document.querySelector('.credit_period').value;
+            d = document.querySelector('.credit_contribution').value;
+            e = document.querySelector('.type_contribution').value;
+            error = document.getElementById("error");
+
+            if(isNaN(a) || a < 1){
+                error.textContent = "Błędnie wypełniony formularz!";
+            } else {
+                if(isNaN(b) || b < 1 || b > 100) {
+                    error.textContent = "Błędnie wypełniony formularz!";
+                } else {
+                    if(isNaN(c) || c < 1) {
+                        error.textContent = "Błędnie wypełniony formularz!";
+                    } else{
+                        if(e === 'pln') {
+                            if(isNaN(d) || d < 1) {
+                                error.textContent = "Błędnie wypełniony formularz!";
+                            } else {
+                                error.textContent = "";
+                                // Create new item based on pln or percentage
+                                if(type === 'perc') {
+                                    newPosition = new parameters_contr_inPerc(flatVal, perc, per, contr, type)
+                                } else if (type = 'pln') {
+                                    newPosition = new parameters_contr_inPln(flatVal, perc, per, contr, type)
+                                }
+                                // Push into data
+                                data.items[type].push(newPosition);
+                            }
+                        } else if(e === 'perc') {
+                            if(isNaN(d) || d < 1 || d > 100) {
+                                error.textContent = "Błędnie wypełniony formularz!";
+                            } else {
+                                error.textContent = "";
+                                // Create new item based on pln or percentage
+                                if(type === 'perc') {
+                                    newPosition = new parameters_contr_inPerc(flatVal, perc, per, contr, type)
+                                } else if (type = 'pln') {
+                                    newPosition = new parameters_contr_inPln(flatVal, perc, per, contr, type)
+                                }
+                                // Push into data
+                                data.items[type].push(newPosition);
+                            }
+                        }
+                    }
+                }
+            };
+
+
 
             return newPosition;
         },
@@ -69,7 +113,8 @@ var calculatorController = (function() {
 
         calculateParameters: function(type) {
             var monthly, capital, interest, amountInstallment, amountFlats, q, parameters;
-            // Factor
+
+                // Factor
             q = 1 + (data.elements[0][1] / 12);
             // Credit value - Contribution
             if (type === 'pln') {
@@ -97,6 +142,7 @@ var calculatorController = (function() {
             }
 
             data.calculated.push(parameters);
+            return parameters;
         },
 
         clearData: function() {
@@ -123,7 +169,8 @@ var UIController = (function() {
         creditPercentage: '.credit_percentage',
         creditPeriod: '.credit_period',
         creditContribution: '.credit_contribution',
-        typeContribution: '.type_contribution'
+        typeContribution: '.type_contribution',
+        displayResults: '.results_container'
 
     };
 
@@ -149,6 +196,33 @@ var UIController = (function() {
             })
         },
 
+        displayResults: function(par) {
+            var resultHtml, newHtml, mapObj;
+
+            resultHtml = '<div class="heading">Miesięczna rata wynosi: </div><div class="monthly">x_1</div><div class="heading">Kapitał: </div><div class="capital">x_2</div><div class="heading">Odsetki:</div><div class="interest">x_3</div><div class="heading">Ilość rat: </div><div class="amount">x_4</div><div class="heading">Ilość takich mieszkań jaką można by kupić za pieniądze,</br> które zmarnował Sasin na druk nielegalnych kart wyborczych:</div><div class="flats">x_5</div>'
+
+            mapObj = {
+                x_1: par.month.toFixed(2) + ' pln',
+                x_2: par.cap.toFixed(2) + ' pln',
+                x_3: par.inter.toFixed(2) + ' pln',
+                x_4: par.amountInstall,
+                x_5: par.amountFl
+            };
+
+            newHtml = resultHtml.replace(/x_1|x_2|x_3|x_4|x_5/gi, function(matched) {
+                return mapObj[matched];
+            })
+
+            // Insert the html into the DOM
+            document.querySelector(DOMstrings.displayResults).insertAdjacentHTML('beforeend', newHtml);
+        },
+
+        validation: function() {
+            document.getElementById("submit").onclick = function() {
+
+            }
+        },
+
         getDomStrings : function() {
             return DOMstrings;
         },
@@ -164,13 +238,14 @@ var controller = (function(calcCtrl, UICtrl) {
 	var setupEventListeners = function() {
         document.querySelector(DOM.calcButton).addEventListener('click', calcItem);
         document.addEventListener('keypress', function(event) {
-            if(event.keyCode === 13 || event.which === 13) { ctrlAddItem(); }
+            if(event.keyCode === 13 || event.which === 13) { calcItem(); }
         });
         document.querySelector(DOM.resetButton).addEventListener('click', resetItem)
 	};
 
     var calcItem = function() {
-        var input, newItem, newHistory, calculated;
+        var input, newItem, newHistory, calculated, i;
+
         // 1. Get the field input data
         input = UICtrl.getInput();
 
@@ -183,11 +258,14 @@ var controller = (function(calcCtrl, UICtrl) {
         // 3. Calculate the credit parameters
         calculated = calcCtrl.calculateParameters(input.type);
 
-        // 4. Add the item to the UI controller
+        // 4. Display results
+        UICtrl.displayResults(calculated);
 
-        // 5. Calculate and display results and history sections
+        // 5. Add the item to the UI controller
 
-        // 6. Adding credit parameters to the history
+        // 6. Calculate and display results and history sections
+
+        // 7. Adding credit parameters to the history
     };
 
     var resetItem = function() {
@@ -202,6 +280,7 @@ var controller = (function(calcCtrl, UICtrl) {
             setupEventListeners();
             console.log('aplikacja działa');
         }
+
     }
 
 })(calculatorController, UIController);

@@ -5,7 +5,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.css" integrity="sha512-8M8By+q+SldLyFJbybaHoAPD6g07xyOcscIOQEypDzBS+sTde5d6mlK2ANIZPnSyxZUqJfCNuaIvjBUi8/RS0w==" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="vendors/css/fullpage.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
     </head>
     <body>
@@ -36,7 +36,7 @@
                     <h2>Parametry Kredytu</h2>
                     <ul class="parameters">
                         <li><p class="par">Wartość mieszkania:</p><input type="number" class="flat_value" required></li>
-                        <li><p class="par">Oprocentowanie:</p><input type="number" class="credit_percentage" placeholder="Oprocentowanie w skali roku" required></li>
+                        <li><p class="par">Oprocentowanie:</p><input type="number" class="credit_percentage" placeholder="Oprocentowanie w skali roku" required></li><span id="error" class="error"></span>
                         <li><p class="par">Okres kredytu:</p><input type="number" class="credit_period" placeholder="W latach" required></li>
                         <li><p class="par">Wkład własny:</p><input type="number" class="credit_contribution" placeholder="% lub Pln" required>
                             <select class="type_contribution">
@@ -45,7 +45,7 @@
                             </select>
                         </li>
                     </ul>
-                    <a class="submit_btn button" href="#section3">
+                    <a class="submit_btn button" id="submit">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -54,58 +54,60 @@
                     </a>
                 </div>
             </section>
-
-            <section class="results section">
-                <div class="center">
-                    <div class="row">
-                        <h2 class="installment">Wysokość Rat</h2>
-                    </div>
-                    <div class="row column">
-                        <div>
-                            <div class="heading">Miesięczna rata wynosi: </div>
-                            <div class="monthly">1250zł</div>
-                            <div class="heading">Kapitał: </div>
-                            <div class="capital">1000zł</div>
-                            <div class="heading">Odsetki:</div>
-                            <div class="interest">250zł</div>
-                            <div class="heading">Ilość rat: </div>
-                            <div class="amount">106</div>
-                            <div class="heading">Ilość takich mieszkań jaką można by kupić za pieniądze,</br> które zmarnował Sasin na druk nielegalnych kart wyborczych:</div>
-                            <div class="flats">256</div>
-                            <a class="reset_btn button" href="#section2">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                Resetuj Parametry
-                            </a>
-                            <a class="history_btn" href="#section4">
-                                Podaj conajmniej parametry </br> dwóch kredytów, </br> aby zobaczyć porównanie <ion-icon name="arrow-down-outline" class="animate__animated animate__slideInDown animate__infinite"></ion-icon>
-                            </a>
+                <section class="results section">
+                    <div class="center">
+                        <div class="row">
+                            <h2 class="installment">Wysokość Rat</h2>
+                        </div>
+                        <div class="row column">
+                            <div>
+                                <div class="results_container">
+                                    <!--
+                                    <div class="heading">Miesięczna rata wynosi: </div>
+                                    <div class="monthly">1250zł</div>
+                                    <div class="heading">Kapitał: </div>
+                                    <div class="capital">1000zł</div>
+                                    <div class="heading">Odsetki:</div>
+                                    <div class="interest">250zł</div>
+                                    <div class="heading">Ilość rat: </div>
+                                    <div class="amount">106</div>
+                                    <div class="heading">Ilość takich mieszkań jaką można by kupić za pieniądze,</br> które zmarnował Sasin na druk nielegalnych kart wyborczych:</div>
+                                    <div class="flats">256</div>
+                                    -->
+                                </div>
+                                <a class="reset_btn button" href="#section2">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    Resetuj Parametry
+                                </a>
+                                <a class="history_btn" href="#section4">
+                                    Podaj conajmniej parametry </br> dwóch kredytów, </br> aby zobaczyć porównanie <ion-icon name="arrow-down-outline" class="animate__animated animate__slideInDown animate__infinite"></ion-icon>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section class="history section">
-                <div class="center">
-                    <div class="row">
-                        <h2 class="comparison">Porównanie kredytów</h2>
-                    </div>
-                    <div class="row">
-                        <div class="item" id="number-0">
-                            <div class="number"><strong>1.</strong></div>
-                            <div class="history_value">200.000</div>
-                            <div class="history_installment">1.250pln</div>
-                            <div class="history_percentage">3.0%</div>
+                </section>
+                <section class="history section">
+                    <div class="center">
+                        <div class="row">
+                            <h2 class="comparison">Porównanie kredytów</h2>
+                        </div>
+                        <div class="row">
+                            <div class="item" id="number-0">
+                                <div class="number"><strong>1.</strong></div>
+                                <div class="history_value">200.000</div>
+                                <div class="history_installment">1.250pln</div>
+                                <div class="history_percentage">3.0%</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            -->
+                </section>
         </div>
 
         <script src="resources/js/script.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.js" integrity="sha512-Gx/C4x1qubng2MWpJIxTPuWch9O88dhFFfpIl3WlqH0jPHtCiNdYsmJBFX0q5gIzFHmwkPzzYTlZC/Q7zgbwCw==" crossorigin="anonymous"></script>
+        <script src="vendors/js/fullpage.min.js"></script>
         <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
         <script>
             new fullpage('#fullPage', {
