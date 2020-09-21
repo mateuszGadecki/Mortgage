@@ -143,6 +143,7 @@ h2 {
     font-weight: 300;
 }
 
+.results_container { display: none; }
 .capital { color: #009432; }
 .interest { color: #EA2027; }
 
@@ -171,6 +172,21 @@ h2 {
 .item {
     width: 500px;
     font-size: 110%;
+}
+
+.historyTitle {
+    width: 100%;
+    font-size: 115%;
+}
+
+.title_value {
+    margin-left: 98px;
+    float: left;
+}
+.title_installment,
+.title_percentage {
+    float: left;
+    margin: 0 0 10px 40px;
 }
 
 .number,
