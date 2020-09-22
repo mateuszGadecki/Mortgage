@@ -180,22 +180,27 @@ h2 {
 }
 
 .title_value {
-    margin-left: 98px;
+    margin-left: 70px;
     float: left;
 }
 .title_installment,
 .title_percentage {
     float: left;
-    margin: 0 0 10px 40px;
+    margin: 0 0 10px 60px;
 }
 
-.number,
+.number { float: left; margin-left: 40px; font-size: 90%; }
 .history_value,
 .history_installment,
 .history_percentage {
-    margin-left: 40px;
+    position: absolute;
     float: left;
+    font-size: 90%;
 }
+
+.history_value { left: 17.5%; }
+.history_installment { left: 27%; }
+.history_percentage { left: 38%; }
 
 /*------------------------------Buttons------------------------------*/
 .submit_btn,

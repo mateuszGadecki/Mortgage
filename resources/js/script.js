@@ -1,13 +1,7 @@
 /*----------------------------------------Calculator Controller----------------------------------------*/
 var calculatorController = (function() {
-    var credit_history, parameters_contr_inPerc, parameters_contr_inPln, data;
+    var parameters_contr_inPerc, parameters_contr_inPln, data;
 
-    credit_history = function(flatValue, percentage, period, contribution) {
-        this.flatValue = flatValue;
-        this.percentage = percentage;
-        this.period = period;
-        this.contribution = contribution;
-    };
     parameters_contr_inPerc = function(flatValue, percentage, period, contribution, type) {
         this.flatValue = flatValue;
         this.percentage = percentage;
@@ -49,16 +43,6 @@ var calculatorController = (function() {
             return newPosition;
         },
 
-        addToHistory: function(flatVal, perc, per, contr) {
-            var historyPosition;
-            // Create new history item
-            historyPosition = new credit_history(flatVal, perc, per, contr);
-            // Push into data
-            data.history.push(historyPosition);
-
-            return historyPosition;
-        },
-
         mapElements: function(type) {
             var elements = [];
             data.items[type].map(function(cur) {
@@ -71,7 +55,7 @@ var calculatorController = (function() {
         calculateParameters: function(type) {
             var monthly, capital, interest, amountInstallment, amountFlats, q, parameters;
 
-                // Factor
+            // Factor
             q = 1 + (data.elements[0][1] / 12);
             // Credit value - Contribution
             if (type === 'pln') {
@@ -97,8 +81,24 @@ var calculatorController = (function() {
                 amountInstall: amountInstallment,
                 amountFl: amountFlats
             }
-
             data.calculated.push(parameters);
+
+            // Adding calculated values to history
+            var position;
+            if(data.history.length > 0) {
+                position = data.history.length + 1;
+            } else { position = 1; }
+
+            historyValue = {
+                id: position,
+                monthly: monthly,
+                value: data.elements[0][0],
+                percentage: data.elements[0][1]
+            }
+
+            // Push into data
+            data.history.push(historyValue);
+
             return parameters;
         },
 
@@ -107,6 +107,15 @@ var calculatorController = (function() {
             data.items.pln = [];
             data.elements = [];
             data.calculated = [];
+        },
+
+        historyList: function() {
+            var historyData = [];
+            if(data.history.length > 0) {
+                historyData.push(data.history);
+            }
+            console.log(historyData);
+            return historyData;
         },
 
         testing: function() {
@@ -127,7 +136,8 @@ var UIController = (function() {
         creditPeriod: '.credit_period',
         creditContribution: '.credit_contribution',
         typeContribution: '.type_contribution',
-        displayResults: '.results_container'
+        displayResults: '.results_container',
+        historyContainer: '.history-container'
 
     };
 
@@ -174,11 +184,25 @@ var UIController = (function() {
             document.querySelector(DOMstrings.displayResults).innerHTML = newHtml;
         },
 
-        displayHistory: function() {
+        displayHistory: function(his) {
             var historyHtml, newHtml, mapObj;
 
-            historyHtml = '<div class="number"><strong>1.</strong></div><div class="history_value">200.000</div><div class="history_installment">1.250pln</div><div class="history_percentage">3.0%</div>'
+            historyHtml = '<div class="item" id="number-0"><div class="number"><strong>x_1.</strong></div><div class="history_value">x_2</div><div class="history_installment">x_3</div><div class="history_percentage">x_4</div></div>'
 
+            mapObj = {
+                x_1: his[0][his[0].length-1].id,
+                x_2: his[0][his[0].length-1].value + ' pln',
+                x_3: his[0][his[0].length-1].monthly.toFixed(2) + ' pln',
+                x_4: his[0][his[0].length-1].percentage.toFixed(2) + ' %'
+            };
+
+            if(his[0].length <= 15) {
+                newHtml = historyHtml.replace(/x_1|x_2|x_3|x_4/gi, function(matched) {
+                    return mapObj[matched];
+                })
+
+                document.querySelector(DOMstrings.historyContainer).insertAdjacentHTML('beforeend', newHtml);
+            }
         },
 
         showContainer: function() {
@@ -210,12 +234,12 @@ var controller = (function(calcCtrl, UICtrl) {
 	};
 
     var calcItem = function() {
-        var input, newItem, newHistory, calculated, i;
+        var input, newItem, calculated, x;
 
         // 1. Get the field input data
         input = UICtrl.getInput();
 
-        // 2. Add the items to the calculator controller (items based on % and pln + history)
+        // 2. Add the items to the calculator controller (items based on % and pln)
         // Validation
         var a, b, c, d, e, error;
         a = document.querySelector('.flat_value').value;
@@ -254,11 +278,10 @@ var controller = (function(calcCtrl, UICtrl) {
                 }
             }
         };
-        newHistory = calcCtrl.addToHistory(input.price, input.percentage, input.period, input.contribution);
 
         // 3. Map the elements of object in array
         mapedElements = calcCtrl.mapElements(input.type);
-        // 3. Calculate the credit parameters
+        // 3. Calculate the credit parameters and adding results to history
         calculated = calcCtrl.calculateParameters(input.type);
 
         // 4. Display results
@@ -267,7 +290,8 @@ var controller = (function(calcCtrl, UICtrl) {
         // 5. Show the item in the UI controller
         UICtrl.showContainer();
         // 6. Calculate and display results and history sections
-
+        x = calcCtrl.historyList();
+        UICtrl.displayHistory(x);
         // 7. Adding credit parameters to the history
     };
 
